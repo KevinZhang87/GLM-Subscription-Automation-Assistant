@@ -1,0 +1,11 @@
+# GLM Coding Plan 订阅自动化辅助工具依赖（Python 3.11.9 验证通过）
+# 安装：pip install -r requirements.txt
+# 然后安装浏览器：python -m playwright install chromium
+#
+# 免责声明：本工具仅提供自动化辅助功能，相关法律风险由使用者自行承担。
+
+playwright==1.49.1      # 浏览器自动化：扫码登录 + 自动化主路径
+httpx==0.27.2           # 接口自动化路径（可选）
+ntplib==0.4.0           # NTP 服务器时间对齐
+pyyaml==6.0.2           # 配置文件解析
+rich==13.9.4            # 终端彩色日志

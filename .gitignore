@@ -1,0 +1,115 @@
+# =====================================================================
+# GLM Coding Plan 订阅自动化辅助工具 - .gitignore
+# 核心原则：排除所有含敏感信息、个人配置、本地环境的文件
+# =====================================================================
+
+# ---------- 敏感信息 / 个人配置（最重要，切勿提交）----------
+# 用户实际配置（可能含真实触发时间、webhook 地址等）
+config.yaml
+# 环境变量 / 密钥文件
+.env
+.env.*
+*.pem
+*.key
+secrets.*
+
+# ---------- 登录态（含 cookie / token，严禁提交）----------
+data/
+*.storage_state*
+# 任何散落的 storage_state / cookies json
+storage_state*.json
+cookies*.json
+
+# ---------- 运行产物 ----------
+*.log
+logs/
+# 运行过程可能的截图、调试导出
+*.png
+*.jpg
+*.jpeg
+*.har
+*.dmp
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+.eggs/
+develop-eggs/
+sdist/
+wheels/
+build/
+dist/
+pip-wheel-metadata/
+.installed.cfg
+MANIFEST
+
+# ---------- 虚拟环境 ----------
+.venv/
+venv/
+env/
+ENV/
+
+# ---------- 测试 / 类型检查 / 覆盖率 ----------
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+
+# ---------- Jupyter ----------
+.ipynb_checkpoints/
+*.ipynb
+
+# ---------- 包管理锁文件（按需保留，默认忽略 uv 局部缓存）----------
+# uv 缓存
+.uv/
+
+# ---------- IDE / 编辑器 ----------
+.idea/
+.vscode/
+.fleet/
+*.code-workspace
+.spyderproject
+.spyproject
+*.sublime*
+.project
+.pydevproject
+.settings/
+
+# ---------- 操作系统 ----------
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+# Linux
+*~
+.directory
+.Trash-*
+
+# ---------- 开发辅助文档 ----------
+需求文档.txt

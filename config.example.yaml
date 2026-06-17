@@ -1,0 +1,70 @@
+# =====================================================================
+# GLM Coding Plan 订阅自动化辅助工具 - 配置模板
+# 使用前复制为 config.yaml 并按需修改：copy config.example.yaml config.yaml
+# ---------------------------------------------------------------------
+# 免责声明：本工具仅提供自动化辅助功能，帮助使用者以程序方式完成网页
+# 上的常规点击与表单提交操作。使用者应自行评估并承担使用本工具的一切
+# 法律风险与后果，包括但不限于遵守目标网站用户协议及适用法律法规。
+# 禁止用于批量抢购倒卖、破坏公平机制、规避付费等目的。
+# =====================================================================
+
+# ---- 目标触发时间（本地时间）----
+# 到点前会预热页面，到点立刻触发；请确保提前 30s 以上启动 auto_order.py
+trigger_time: "2026-06-18 12:00:00"
+
+# ---- 目标套餐定位（关键词匹配，不写死套餐名）----
+target:
+  # 套餐卡片中包含的关键词（用于在页面里定位对应套餐）
+  plan_keyword: "Lite"
+  # 购买按钮文案（命中其一即点击），按优先级排序
+  buy_button_texts:
+    - "立即订阅"
+    - "立即购买"
+    - "立即开通"
+    - "Subscribe"
+
+# ---- 浏览器自动化（主路径）----
+browser:
+  # 建议 false：保留窗口，便于人工处理验证码 / 支付
+  headless: false
+  # 触发时多次点击的次数（避免单次点击被吞），建议 1~3
+  click_attempts: 2
+  # JS 注入点击失败后的回退：原生 locator.click()
+  fallback_native_click: true
+
+# ---- 接口自动化路径（可选）----
+# 如启用：请先用浏览器 DevTools 抓包「下单/购买」接口，填入下方字段
+# 注意：本工具仅复用浏览器已登录的 token，不提供逆向签名能力
+http_auto:
+  enabled: false
+  # 抓包得到的下单接口
+  url: "https://open.bigmodel.cn/api/paas/v4/order/create"
+  method: "POST"
+  # 请求体模板（支持占位符，运行时替换）
+  payload_template: '{"planCode": "GLM_CODING_LITE_YEARLY"}'
+  # 并发请求数（建议 ≤3）
+  concurrency: 2
+
+# ---- NTP 时间对齐 ----
+time_sync:
+  enabled: true
+  # NTP 服务器，可换为更近的节点
+  ntp_server: "ntp.aliyun.com"
+  # 到点前多少毫秒进入忙等（busy-wait，精度 ±10ms）
+  busy_wait_ms: 200
+
+# ---- 通知（可选）----
+notifier:
+  # 终端高亮打印始终开启；以下为可选 webhook，留空则不推送
+  wecom_webhook: ""   # 企业微信机器人
+  dingtalk_webhook: "" # 钉钉机器人
+
+# ---- 登录态文件路径（login.py 生成）----
+storage_state: "data/storage_state.json"
+
+# ---- 目标页面 URL ----
+pages:
+  home: "https://bigmodel.cn/"
+  coding_plan: "https://bigmodel.cn/glm-coding"
+  # 登录入口（首页右上角"登录"按钮跳转后通常落到这里）
+  login: "https://bigmodel.cn/"
